@@ -6,10 +6,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Camera playerCamera;
-
-    //Drag the OUTER PLAYER object here.
-    public Transform playerParent;
-
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     public float jumpPower = 7f;
@@ -36,29 +32,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Movement will now depend on where the WHOLE player is facing.
-        Vector3 forward = playerParent.forward;
-        Vector3 right = playerParent.right;
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
 
-        float curSpeedX =
-            canMove ? (isRunning ? runSpeed : walkSpeed)
-            * Input.GetAxis("Vertical") : 0;
-
-        float curSpeedY =
-            canMove ? (isRunning ? runSpeed : walkSpeed)
-            * Input.GetAxis("Horizontal") : 0;
+        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
 
         float movementDirectionY = moveDirection.y;
 
-        moveDirection =
-            (forward * curSpeedX)
-            + (right * curSpeedY);
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (Input.GetButton("Jump")
-            && canMove
-            && characterController.isGrounded)
+        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpPower;
         }
@@ -72,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        //Crouching
         if (Input.GetKey(KeyCode.R) && canMove)
         {
             characterController.height = crouchHeight;
@@ -86,36 +71,22 @@ public class PlayerMovement : MonoBehaviour
             runSpeed = 12f;
         }
 
-        //Move the Character Controller.
         characterController.Move(moveDirection * Time.deltaTime);
-
 
         if (canMove)
         {
-            //LOOK UP AND DOWN
-            rotationX +=
-                -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
 
-            rotationX =
-                Mathf.Clamp(rotationX,
-                -lookXLimit,
-                lookXLimit);
+            // Only camera rotates on X (look up/down)
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
-            playerCamera.transform.localRotation =
-                Quaternion.Euler(rotationX, 0, 0);
-
-
-            //LOOK LEFT AND RIGHT
-            playerParent.rotation *=
-                Quaternion.Euler(
-                    0,
-                    Input.GetAxis("Mouse X") * lookSpeed,
-                    0
-                );
+            // Only the Player root rotates on Y (turn left/right)
+            // PlayerBody will follow automatically as a child
+            float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
+            transform.Rotate(0, mouseX, 0);
         }
 
-
-        //Footstep sounds
         if (Input.GetAxisRaw("Horizontal") != 0 ||
             Input.GetAxisRaw("Vertical") != 0)
         {
@@ -133,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Vector3.zero;
         rotationX = 0f;
     }
-
 
     public void SetCanMove(bool value)
     {
