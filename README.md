@@ -364,4 +364,8 @@ This project is intended for academic and research purposes.
 
 ---
 
+<<<<<<< HEAD
 > CampusQuest aims to bridge the gap between traditional campus maps and immersive exploration by making navigation intuitive, engaging and accessible for every user.
+=======
+> CampusQuest aims to bridge the gap between traditional campus maps and immersive exploration by making navigation intuitive, engaging and accessible for every user.
+>>>>>>> b5b04ae47c7114dec1732b551c349f55f65254cc
