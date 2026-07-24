@@ -5,11 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Working Scenes/MainMenu.unity
     guid: 32a77d4a1d9aa5b4eae3cd0e464caa3c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Working Scenes/MainCampusQuest.unity
     guid: 20ebbf9c27fb9d648af7186810f7b043
+  - enabled: 1
+    path: Assets/Scenes/Working Scenes/MobileMainMenu.unity
+    guid: 6d6891104853f5642b52299f1f20431b
+  - enabled: 1
+    path: Assets/Scenes/Working Scenes/MobileMainCampusQuest.unity
+    guid: 215c753c4aaa78a468e823b61da1047b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
