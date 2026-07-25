@@ -29,6 +29,8 @@ public class MobilePlayerMovement : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.None;  
+        Cursor.visible = true;
     }
 
     void Update()
@@ -62,7 +64,7 @@ public class MobilePlayerMovement : MonoBehaviour
         cc.Move(moveDirection * Time.deltaTime);
 
         // --- Look (from UIVirtualTouchZone via StarterAssetsInputs) ---
-        rotationX -= input.look.y * lookSensitivity;
+        rotationX += input.look.y * lookSensitivity;
         rotationX  = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.Rotate(0, input.look.x * lookSensitivity, 0);
