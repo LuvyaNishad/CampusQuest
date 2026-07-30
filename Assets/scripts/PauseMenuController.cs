@@ -9,6 +9,7 @@ public class PauseMenuController : MonoBehaviour
 
     [Header("Player")]
     public PlayerMovement playerMoveScript;
+    public MobilePlayerMovement mobilePlayerMoveScript;
 
     private bool isPaused = false;
 
@@ -16,10 +17,8 @@ public class PauseMenuController : MonoBehaviour
     {
         if (pauseMenu != null)
             pauseMenu.SetActive(false);
-
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
-
         if (questPanel != null)
             questPanel.SetActive(false);
 
@@ -33,7 +32,6 @@ public class PauseMenuController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             Debug.Log("TAB PRESSED");
-
             if (isPaused)
                 ResumeGame();
             else
@@ -44,62 +42,56 @@ public class PauseMenuController : MonoBehaviour
     // =========================
     // OPEN MENU
     // =========================
-
     public void OpenPauseMenu()
     {
         isPaused = true;
-
         pauseMenu.SetActive(true);
 
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
-
         if (questPanel != null)
             questPanel.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         Time.timeScale = 0f;
 
         if (playerMoveScript != null)
             playerMoveScript.SetCanMove(false);
+        if (mobilePlayerMoveScript != null)
+            mobilePlayerMoveScript.SetCanMove(false);
     }
 
     // =========================
     // RESUME GAME
     // =========================
-
     public void ResumeGame()
     {
         isPaused = false;
-
         pauseMenu.SetActive(false);
 
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
-
         if (questPanel != null)
             questPanel.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         Time.timeScale = 1f;
 
         if (playerMoveScript != null)
             playerMoveScript.SetCanMove(true);
+        if (mobilePlayerMoveScript != null)
+            mobilePlayerMoveScript.SetCanMove(true);
     }
 
     // =========================
     // OPTIONS TAB
     // =========================
-
     public void OpenOptions()
     {
         if (optionsPanel != null)
             optionsPanel.SetActive(true);
-
         if (questPanel != null)
             questPanel.SetActive(false);
     }
@@ -107,12 +99,10 @@ public class PauseMenuController : MonoBehaviour
     // =========================
     // QUEST TAB
     // =========================
-
     public void OpenQuests()
     {
         if (questPanel != null)
             questPanel.SetActive(true);
-
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
     }
@@ -120,7 +110,6 @@ public class PauseMenuController : MonoBehaviour
     // =========================
     // EXIT GAME
     // =========================
-
     public void ExitGame()
     {
 #if UNITY_EDITOR
