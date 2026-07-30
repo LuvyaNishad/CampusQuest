@@ -44,8 +44,11 @@ public class PauseMenuController : MonoBehaviour
     // =========================
     public void OpenPauseMenu()
     {
+        Debug.Log("BUTTON CLICKED - OpenPauseMenu called");
         isPaused = true;
+
         pauseMenu.SetActive(true);
+        
 
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
