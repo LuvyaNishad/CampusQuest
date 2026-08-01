@@ -3,6 +3,7 @@ using UnityEngine;
 public class PauseMenuController : MonoBehaviour
 {
     [Header("Main Panels")]
+    public GameObject mainMenuPanel;   // NEW — drag MainMenuPanel here in Inspector
     public GameObject pauseMenu;
     public GameObject optionsPanel;
     public GameObject questPanel;
@@ -15,6 +16,9 @@ public class PauseMenuController : MonoBehaviour
 
     void Start()
     {
+        if (mainMenuPanel != null)
+            mainMenuPanel.SetActive(true);   // NEW — always keep the container on
+
         if (pauseMenu != null)
             pauseMenu.SetActive(false);
         if (optionsPanel != null)
@@ -39,16 +43,15 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
-    // =========================
-    // OPEN MENU
-    // =========================
     public void OpenPauseMenu()
     {
         Debug.Log("BUTTON CLICKED - OpenPauseMenu called");
         isPaused = true;
 
+        if (mainMenuPanel != null)
+            mainMenuPanel.SetActive(true);   // NEW — force parent on every time, no dependency on Tab's side effect
+
         pauseMenu.SetActive(true);
-        
 
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
@@ -65,9 +68,6 @@ public class PauseMenuController : MonoBehaviour
             mobilePlayerMoveScript.SetCanMove(false);
     }
 
-    // =========================
-    // RESUME GAME
-    // =========================
     public void ResumeGame()
     {
         isPaused = false;
@@ -88,9 +88,6 @@ public class PauseMenuController : MonoBehaviour
             mobilePlayerMoveScript.SetCanMove(true);
     }
 
-    // =========================
-    // OPTIONS TAB
-    // =========================
     public void OpenOptions()
     {
         if (optionsPanel != null)
@@ -99,9 +96,6 @@ public class PauseMenuController : MonoBehaviour
             questPanel.SetActive(false);
     }
 
-    // =========================
-    // QUEST TAB
-    // =========================
     public void OpenQuests()
     {
         if (questPanel != null)
@@ -110,9 +104,6 @@ public class PauseMenuController : MonoBehaviour
             optionsPanel.SetActive(false);
     }
 
-    // =========================
-    // EXIT GAME
-    // =========================
     public void ExitGame()
     {
 #if UNITY_EDITOR
