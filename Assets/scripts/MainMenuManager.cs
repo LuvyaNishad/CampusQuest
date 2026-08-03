@@ -14,7 +14,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("PLAY CLICKED");
-        SceneManager.LoadScene("MainCampusQuest");
+        SceneManager.LoadScene("MobileMainCampusQuest");
     }
 
     public void QuitGame()
