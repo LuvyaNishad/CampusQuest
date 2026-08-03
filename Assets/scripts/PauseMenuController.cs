@@ -3,7 +3,7 @@ using UnityEngine;
 public class PauseMenuController : MonoBehaviour
 {
     [Header("Main Panels")]
-    public GameObject mainMenuPanel;   // NEW — drag MainMenuPanel here in Inspector
+    public GameObject mainMenuPanel;
     public GameObject pauseMenu;
     public GameObject optionsPanel;
     public GameObject questPanel;
@@ -17,7 +17,7 @@ public class PauseMenuController : MonoBehaviour
     void Start()
     {
         if (mainMenuPanel != null)
-            mainMenuPanel.SetActive(true);   // NEW — always keep the container on
+            mainMenuPanel.SetActive(true);
 
         if (pauseMenu != null)
             pauseMenu.SetActive(false);
@@ -49,7 +49,7 @@ public class PauseMenuController : MonoBehaviour
         isPaused = true;
 
         if (mainMenuPanel != null)
-            mainMenuPanel.SetActive(true);   // NEW — force parent on every time, no dependency on Tab's side effect
+            mainMenuPanel.SetActive(true);
 
         pauseMenu.SetActive(true);
 
@@ -102,6 +102,17 @@ public class PauseMenuController : MonoBehaviour
             questPanel.SetActive(true);
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
+    }
+
+    // NEW — closes whichever sub-panel is open and returns to the PAUSED screen
+    public void BackToPauseMenu()
+    {
+        if (optionsPanel != null)
+            optionsPanel.SetActive(false);
+        if (questPanel != null)
+            questPanel.SetActive(false);
+        if (pauseMenu != null)
+            pauseMenu.SetActive(true);
     }
 
     public void ExitGame()
