@@ -13,7 +13,12 @@ public class MapToggle : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            worldMapUI.SetActive(!worldMapUI.activeSelf);
+            ToggleMap();
         }
+    }
+
+    public void ToggleMap()
+    {
+        worldMapUI.SetActive(!worldMapUI.activeSelf);
     }
 }
